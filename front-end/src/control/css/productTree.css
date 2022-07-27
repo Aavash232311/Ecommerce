@@ -1,0 +1,124 @@
+#productTreeForm {
+    width: 80%;
+    height: 600px;
+}
+
+#addedProducts {
+    float: right;
+    width: 25%;
+}
+
+.Names {
+    float: left;
+    font-weight: bolder;
+    font-size: 24px;
+    user-focus: none;
+    user-select: none;
+}
+
+.formComponents {
+    width: 100%;
+    float: left;
+}
+
+.search {
+    float: left;
+    width: 25%;
+}
+
+.searchButton {
+    float: left;
+    margin-left: 5px;
+}
+
+#dirs {
+    float: left;
+    width: 25%;
+    height: 550px;
+    overflow: auto;
+}
+
+#createModileInput {
+    width: 55%;
+    float: left;
+}
+
+.Content {
+    user-select: none;
+    user-focus: none;
+    cursor: pointer;
+}
+
+.Content:hover {
+    color: orange;
+}
+
+.expandIcon {
+    float: right;
+    font-weight: bolder;
+}
+
+.expandIcon:hover {
+    color: orangered;
+    cursor: pointer;
+    user-focus: none;
+    user-select: none;
+}
+
+#goBack {
+    float: right;
+    cursor: pointer;
+    user-select: none;
+    user-focus: none;
+}
+
+#goBack:hover {
+    color: orangered;
+}
+
+.delIcons {
+    float: right;
+    margin-right: 5px;
+}
+
+.delIcons:hover {
+    font-size: 18px;
+}
+
+#conformationDialog {
+    position: absolute;
+    left: 40%;
+    top: 300px;
+}
+
+#addButton {
+    float: left;
+    margin-left: 5px;
+}
+
+#searchProductPath {
+    width: 20%;
+    float: left;
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 841px) {
+    #createModileInput, #addButton, #searchProductPath {
+        width: 25%;
+    }
+
+    #productTreeForm {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    #createModileInput, #addButton {
+        width: 100%;
+    }
+
+    #searchProductPath {
+        float: right;
+        width: 50%;
+    }
+}

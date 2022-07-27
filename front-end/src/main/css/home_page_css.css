@@ -1,0 +1,34 @@
+#Nav {
+    width: 100%;
+    height: 50px;
+    margin-top: 0;
+}
+
+#logoMain {
+    font-weight: bolder;
+    user-select: none;
+    user-focus: none;
+    font-size: 18px;
+}
+
+#nav_login_contents {
+    float: right;
+    margin-right: 5px;
+    user-focus: none;
+    user-select: none;
+}
+
+.anchors, #anchors {
+    text-decoration: none;
+    color: black;
+    margin-right: 10px;
+}
+
+#progressBar {
+    width: 100%;
+    background-color: #0d6efd;
+    position: fixed;
+    margin-top: 0;
+    height: 5px;
+    display: none;
+}

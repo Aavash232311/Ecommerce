@@ -1,0 +1,88 @@
+#nav_bar {
+    background-color: red;
+    background-image: linear-gradient(#4E73DF, #4E73DF);
+    height: 740px;
+    width: 200px;
+    position: fixed;
+    user-focus: none;
+    user-select: none;
+    z-index: 9;
+}
+
+.imageBlocksUI {
+    height: 80px;
+    width: 80px;
+    background-image: linear-gradient(#f7f7f9, #e7e9eb);
+    float: left;
+    margin-left: 5px;
+}
+
+#logoTag {
+    color: white;
+    font-weight: bold;
+}
+
+.sideNavLinks {
+    font-weight: lighter;
+    color: white;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.sideNavLinks:hover {
+    font-weight: bold;
+    color: white;
+}
+
+.nav_labels {
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 330px) {
+    .mobileNavIcons {
+        font-size: 14px;
+    }
+
+    #nav_bar {
+        width: auto;
+    }
+
+}
+@media screen and (max-width: 465px) {
+    #product_tag_search, .h-list{
+        float: left;
+    }
+    .h-list{
+        width: 100%;
+    }
+    #add_tag_btn{
+        margin-top: 5px;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 1000px) {
+    #nav_bar {
+        width: 50px;
+    }
+
+    .nav_labels, #branchLogo {
+        display: none;
+    }
+
+    .mobileNavIcons {
+        font-size: 32px;
+    }
+
+    #logoBreak {
+        border-bottom: none;
+    }
+
+    .form-label {
+        width: 100%;
+    }
+
+    .addProductFrame {
+        float: right;
+        width: 85%;
+    }
+}

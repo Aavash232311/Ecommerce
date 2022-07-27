@@ -1,0 +1,18 @@
+.navbar{
+    width: 100%;
+    height: 50px;
+}
+#optionsDiv{
+    user-select: none;
+    user-focus: none;
+    color: white;
+    font-weight: lighter;
+}
+.adminNavOptions:hover{
+    font-weight: bolder;
+}
+.adminNavOptions{
+    margin-right: 10px;
+    text-decoration: none;
+    color: white;
+}
