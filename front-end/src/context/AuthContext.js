@@ -80,7 +80,7 @@ export const AuthProvider = ({children}) => {
             if (authToken) {
                 updateToken().then();
             }
-        }, 5000);
+        }, 15000);
         return () => {
             clearInterval(interval);
         }

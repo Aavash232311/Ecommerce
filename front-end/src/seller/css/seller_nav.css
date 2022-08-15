@@ -1,12 +1,25 @@
 #nav_bar {
-    background-color: red;
-    background-image: linear-gradient(#4E73DF, #4E73DF);
+    background-color: #2196f3;
     height: 740px;
     width: 200px;
     position: fixed;
     user-focus: none;
     user-select: none;
     z-index: 9;
+}
+#icnStack{
+    float: left;
+    color: white;
+    margin-top: 5px;
+}
+
+#stackIcon {
+    color: black;
+    z-index: 9;
+    width: 100%;
+    background-color: #2196f3;
+    position: fixed;
+    height: 25px;
 }
 
 .imageBlocksUI {
@@ -48,18 +61,22 @@
     }
 
 }
+
 @media screen and (max-width: 465px) {
-    #product_tag_search, .h-list{
+    #product_tag_search, .h-list {
         float: left;
     }
-    .h-list{
+
+    .h-list {
         width: 100%;
     }
-    #add_tag_btn{
+
+    #add_tag_btn {
         margin-top: 5px;
         width: 100%;
     }
 }
+
 @media screen and (max-width: 1000px) {
     #nav_bar {
         width: 50px;

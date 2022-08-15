@@ -164,3 +164,7 @@ def send_sms(phone_number, user, resend):
         from_=phone,
         to="+977" + phone_number
     )
+
+
+class SaveProductForm(APIView):
+    pass

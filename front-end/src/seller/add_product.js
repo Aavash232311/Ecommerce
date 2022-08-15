@@ -7,32 +7,52 @@ import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import {FcImageFile, FcChargeBattery} from 'react-icons/fc';
 import {AiOutlineDelete} from 'react-icons/ai';
 import TextField from '@mui/material/TextField';
-import {Button, InputAdornment, Switch} from "@mui/material";
+import {Button, InputAdornment, responsiveFontSizes, Switch} from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
 import {AiFillFire} from 'react-icons/ai';
 import {GiGroundbreaker} from 'react-icons/gi';
 import AuthContext from "../context/AuthContext";
+import {
+    createTheme,
+    ThemeProvider,
+} from '@mui/material/styles';
+import Typography from "@mui/material/Typography";
 
 let pathArray = [];
 let tagArray = [];
+let selected = null;
 const currencies = [
     {
         value: 'Liquid',
         label: <div><BsWater/> Water</div>,
     },
     {
-        value: 'flammable',
+        value: 'Flammable',
         label: <div><AiFillFire/> Flammable</div>,
     },
     {
-        value: "battery",
+        value: "Battery",
         label: <div><FcChargeBattery/>Battery</div>,
     },
     {
-        value: 'sensitive',
+        value: 'Sensitive',
         label: <div><GiGroundbreaker/>Sensitive</div>,
     },
 ];
+
+
+const discount = [
+    {
+        value: "yes",
+        label: "yes"
+    },
+    {
+        value: "No",
+        label: "No"
+    }
+]
+
+
 export default function AddProduct() {
     const [parentRsp, setParentRsp] = useState(false);
     const [base, setBase] = useState([]);
@@ -40,6 +60,7 @@ export default function AddProduct() {
     let {token} = useContext(AuthContext);
 
     const get_by_primary_key = (e, pk) => {
+        console.log(pk);
         let id;
         if (e === null) {
             id = pk;
@@ -61,17 +82,22 @@ export default function AddProduct() {
         });
     }
 
+    const productTypesSelected = (e) => {
+        if (e.currentTarget !== undefined){
+            console.log("Product selected");
+        }
+    }
+
     function basicTemplateBoxElem(rsp) {
         let i;
         let parentRsp = [];
         for (i = 0; i < rsp.length; i++) {
             parentRsp.push(
-                <div key={i} id={rsp[i].id} className="product_types_values">
+                <div onClick={(e) => {productTypesSelected(e)}} key={i} id={rsp[i].id} className="product_types_values">
                     <span style={{float: "left"}}>{rsp[i].product}</span>
                     <span onClick={(e) => {
                         get_by_primary_key(e);
-                    }}
-                          className="arrwoRight" style={{float: "right"}}><BsArrowRightShort/></span>
+                    }} className="arrwoRight" style={{float: "right"}}><BsArrowRightShort/></span>
                 </div>
             )
         }
@@ -239,23 +265,64 @@ export default function AddProduct() {
     const [currency, setCurrency] = useState('Liquid');
 
     const handleChange = (event) => {
-        setCurrency(event.target.value);
+        let bool = event.target.value
+        setCurrency(bool);
     };
+
+
+    const [discountDetail, setDiscountDetail] = useState(false);
+
+    const discountInput = (e) => {
+        let value = e.target.checked;
+        setDiscountDetail(value);
+    }
+
 
     const boxContent = useRef(null);
     const label = {inputProps: {'aria-label': 'Switch demo'}};
+
+    const DiscountDetail = (params) => {
+        if (params.bool === true) {
+            return (
+                <div>
+                    <TextField
+                        id="datetime-local"
+                        label="Next appointment"
+                        type="datetime-local"
+                        defaultValue="2017-05-24T10:30"
+                        sx={{width: uniformWidth}}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    /> <br/>
+                    <TextField
+                        label="discount %"
+                        id="outlined-start-adornment"
+                        sx={{m: 1, width: uniformWidth}}
+                        InputProps={{
+                            shrink: true
+                        }}
+                    />
+                </div>
+            )
+        }
+    }
+
+    const uniformWidth = 350;
+
+    let theme = createTheme();
+    theme = responsiveFontSizes(theme);
 
     return (
         <div style={{color: "#3F51B5"}} id="add_products">
             <SellerNav/> <br/>
             <center>
                 <div className="addProductFrame">
-                    <span><b>Add Product General Information</b></span> <br/>
-                    <label htmlFor="add_product" className="form-label"><br/>
-                        <TextField inputProps={{ref: productName}} className="maxLabel"
-                                   id="add_product" label="product name" variant="standard"/>
-
-                    </label>
+                    <ThemeProvider theme={theme}>
+                        <Typography variant="h4">Add product</Typography>
+                    </ThemeProvider>
+                    <TextField style={{marginLeft: '5px'}} inputProps={{ref: productName}} className="maxLabel"
+                               id="add_product" label="product name" variant="outlined"/>
                     <hr style={{visibility: "hidden", height: "50px"}}/>
                     <label className="form-label">
                         <span style={{float: "left"}}> product types</span>
@@ -298,10 +365,12 @@ export default function AddProduct() {
                         <div>
                             <ul className="h-list">
                                 <li className="h-list">
-                                    <input type="text" id="product_tag_search" className="form-control" placeholder="search" ref={addTag}/>
+                                    <input type="text" id="product_tag_search" className="form-control"
+                                           placeholder="search" ref={addTag}/>
                                 </li>
                                 <li className="h-list">
-                                    <button id="add_tag_btn" onClick={addTags} className="btn btn-success">Add tags</button>
+                                    <button id="add_tag_btn" onClick={addTags} className="btn btn-success">Add tags
+                                    </button>
                                 </li>
                             </ul>
                         </div>
@@ -312,8 +381,9 @@ export default function AddProduct() {
                         </div>
                     </div>
                     <hr style={{visibility: "hidden"}}/>
-                    <TextField className="maxLabel" inputProps={{ref: boxContent}} label="box content"
-                               variant="standard"/>
+                    <TextField style={{marginLeft: "5px"}} className="maxLabel" inputProps={{ref: boxContent}}
+                               label="box content"
+                               variant="outlined"/>
                     <hr style={{height: "390px", visibility: "hidden"}}/>
                     <div className="form-check form-check-inline productFormRadios">
                         <label className="form-check-label" htmlFor="inlineCheckbox1">Delivery by seller</label>
@@ -333,7 +403,7 @@ export default function AddProduct() {
                             <TextField
                                 label="Weight in kg"
                                 id="outlined-start-adornment"
-                                sx={{m: 1, width: '25ch'}}
+                                sx={{m: 1, width: uniformWidth}}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start">kg</InputAdornment>,
                                 }}
@@ -342,7 +412,7 @@ export default function AddProduct() {
                             <TextField
                                 label="Height in cm"
                                 id="outlined-start-adornment"
-                                sx={{m: 1, width: '25ch'}}
+                                sx={{m: 1, width: uniformWidth}}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start">cm</InputAdornment>,
                                 }}
@@ -351,7 +421,7 @@ export default function AddProduct() {
                             <TextField
                                 label="Width in cm"
                                 id="outlined-start-adornment"
-                                sx={{m: 1, width: '25ch'}}
+                                sx={{m: 1, width: uniformWidth}}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start">cm</InputAdornment>,
                                 }}
@@ -359,7 +429,7 @@ export default function AddProduct() {
                             <TextField
                                 label="Length in cm"
                                 id="outlined-start-adornment"
-                                sx={{m: 1, width: '25ch'}}
+                                sx={{m: 1, width: uniformWidth}}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start">cm</InputAdornment>,
                                 }}
@@ -367,7 +437,7 @@ export default function AddProduct() {
                             <TextField
                                 label="price in Rs."
                                 id="outlined-start-adornment"
-                                sx={{m: 1, width: '25ch'}}
+                                sx={{m: 1, width: uniformWidth}}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start">Rs.</InputAdornment>,
                                 }}
@@ -378,8 +448,7 @@ export default function AddProduct() {
                                 label="product types"
                                 value={currency}
                                 onChange={handleChange}
-                                sx={{m: 1, width: '25ch'}}
-                                helperText="Product types"
+                                sx={{m: 1, width: uniformWidth}}
                             >
                                 {currencies.map((option) => (
                                     <MenuItem key={option.value} value={option.value}>
@@ -387,21 +456,37 @@ export default function AddProduct() {
                                     </MenuItem>
                                 ))}
                             </TextField> <br/>
-                            <hr style={{width: "80%"}}/>
                             <TextField
-                                id="datetime-local"
-                                label="Discount valid"
-                                type="datetime-local"
-                                defaultValue="2017-05-24T10:30"
-                                sx={{width: 250}}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
+                                label="stock"
+                                id="outlined-start-adornment"
+                                sx={{m: 1, width: uniformWidth}}
+                                InputProps={{}}
+                            /> <br/>
+                            <TextField
+                                label="price"
+                                id="outlined-start-adornment"
+                                sx={{m: 1, width: uniformWidth}}
+                                InputProps={{}}
+                            /> <br/>
+                            <br/>
+
+                            <hr style={{width: "80%"}}/>
+                            <div className="form-check form-check-inline productFormRadios">
+                                <label className="form-check-label" htmlFor="inlineCheckbox1">discount</label>
+                                <Switch onChange={(e) => {
+                                    discountInput(e)
+                                }} {...label} id="discount" color="secondary"/>
+                            </div>
+                            <hr style={{visibility: "hidden", height: "50px"}}/>
+                            <DiscountDetail bool={discountDetail}/>
+
                         </div>
-                        <hr style={{width: "80%", visibility: "hidden"}}/>
+                        <hr style={{width: uniformWidth, visibility: "hidden"}}/>
                         <div id="last_two">
-                            <Button style={{width: "100%"}} id="submitButton"
+                            <Button style={{
+                                width: uniformWidth, backgroundColor:
+                                    "#33eb91"
+                            }} id="submitButton"
                                     variant="contained">Submit</Button>
                         </div>
                     </div>

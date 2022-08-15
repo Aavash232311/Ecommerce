@@ -125,7 +125,7 @@
     border: 1px solid #9E9E9E;
 }
 #add_product_Frame{
-    height: 1300px;
+    height: auto;
 }
 
 .form-label {
