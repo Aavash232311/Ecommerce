@@ -167,4 +167,13 @@ def send_sms(phone_number, user, resend):
 
 
 class SaveProductForm(APIView):
-    pass
+    @classmethod
+    def get_extra_actions(cls):
+        return []
+
+    def post(self, request, *args, **kwargs):
+        print("Hello world")
+        return Response({})
+
+    def get(self, request, *args, **kwargs):
+        return Response({})

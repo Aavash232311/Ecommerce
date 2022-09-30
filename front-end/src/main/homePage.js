@@ -37,13 +37,50 @@ function HomePage() {
         getNotes();
     }, []);
 
+    const TrimLeft = {
+        float: "left",
+        marginLeft: "10px",
+        marginTop: "-18px"
+    }
+
+    const SellerDashboardRoute = () => {
+        if (user === null){
+            return;
+        }
+        if (user['username'] !== null) {
+            return (
+                <li style={TrimLeft}>
+                    <Link to="/sellers/SellerDashboard" style={{
+                        textDecoration: "none",
+                        color: "black"
+                    }}>Seller dashboard </Link>
+                </li>
+            )
+        }else{
+            return null
+        }
+    }
+
+    const authCallBack = () => {
+        return (
+            <div>
+                <ul style={{listStyle: "none"}}>
+
+                    <li style={TrimLeft}><p onClick={logOut}>Logout</p></li>
+                    <SellerDashboardRoute />
+                </ul>
+            </div>
+        )
+    }
+
     return (
         <div className="App">
             <Progress_bar ref={progressBarRef}/>
             <div id="Nav" className="shadow p-3 mb-5 bg-white rounded">
                 <Link id="logoMain" className="anchors" to="/">DeepBasket</Link>
                 <div id="nav_login_contents">
-                    {user ? <p onClick={logOut}>Logout</p> :
+                    {user ? authCallBack()
+                        :
                         <div>
                             <Link to="/authentication/login">Login </Link>
                             <Link to="/authentication/register_page">Register</Link>

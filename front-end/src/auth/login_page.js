@@ -32,6 +32,7 @@ const theme = createTheme();
 
 function LoginPage() {
     let {loginUser, logOut, user} = useContext(AuthContext);
+    logOut();
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();

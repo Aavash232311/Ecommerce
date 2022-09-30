@@ -10,7 +10,8 @@ urlpatterns = [
     path("SellerProfile/", api.SellerInfoDetail.as_view()),
     path("smsReq/", api.resend_sms),
     path("SellerDashboard", views.SellerDashBoard.as_view()),
-    path("add_product", views.AddProduct.as_view())
+    path("add_product", views.AddProduct.as_view()),
+    path("AddProduct", api.SaveProductForm.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

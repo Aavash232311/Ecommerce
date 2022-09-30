@@ -12,6 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import {AiFillFire} from 'react-icons/ai';
 import {GiGroundbreaker} from 'react-icons/gi';
 import AuthContext from "../context/AuthContext";
+import {GetCookie, currentDOMAIN} from "../essentials";
+
 import {
     createTheme,
     ThemeProvider,
@@ -313,13 +315,36 @@ export default function AddProduct() {
     let theme = createTheme();
     theme = responsiveFontSizes(theme);
 
+
+    const handleSubmit = () => {
+        const form = new FormData(mainForm.current);
+
+        const request = new Request(currentDOMAIN() + '/sellers/addProductToList/', {
+            headers: {
+                'X-CSRFToken': GetCookie("csrftoken"),
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(token.access)
+            }
+        });
+        fetch(request, {
+            method: 'post',
+            body: JSON.stringify({
+                test: "1"
+            })
+        }).then(rsp => rsp.json()).then(function (response) {
+            
+        })
+
+    }
+    const mainForm = useRef(null);
+
     return (
-        <div style={{color: "#3F51B5"}} id="add_products">
+        <form  ref={mainForm} style={{color: "#3F51B5"}} id="add_products">
             <SellerNav/> <br/>
             <center>
                 <div className="addProductFrame">
                     <ThemeProvider theme={theme}>
-                        <Typography variant="h4">Add product</Typography>
+                        <Typography variant="h5">Add Products</Typography>;
                     </ThemeProvider>
                     <TextField style={{marginLeft: '5px'}} inputProps={{ref: productName}} className="maxLabel"
                                id="add_product" label="product name" variant="outlined"/>
@@ -483,7 +508,7 @@ export default function AddProduct() {
                         </div>
                         <hr style={{width: uniformWidth, visibility: "hidden"}}/>
                         <div id="last_two">
-                            <Button style={{
+                            <Button onClick={handleSubmit} style={{
                                 width: uniformWidth, backgroundColor:
                                     "#33eb91"
                             }} id="submitButton"
@@ -492,6 +517,6 @@ export default function AddProduct() {
                     </div>
                 </div>
             </center>
-        </div>
+        </form>
     )
 }

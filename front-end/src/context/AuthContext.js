@@ -8,9 +8,11 @@ const AuthContext = createContext(undefined);
 export default AuthContext;
 
 export const AuthProvider = ({children}) => {
+    // username and stuff stored in authtoken which can be reverse engineered
     const [user, setUser] = useState(() => localStorage.getItem("authToken") ?
         jwt_decode(localStorage.getItem("authToken")) : null
     )
+
     const [authToken, setAuthToken] = useState(() => localStorage.getItem("authToken") ?
         JSON.parse(localStorage.getItem("authToken")) : null
     );
@@ -42,6 +44,7 @@ export const AuthProvider = ({children}) => {
     }
 
     let logOutUser = () => {
+        // remove JWT access and refresh token
         setUser(null);
         setAuthToken(null);
         localStorage.removeItem("authToken");

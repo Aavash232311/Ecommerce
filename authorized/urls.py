@@ -14,7 +14,16 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        token['username'] = user.username
+        seller = True
+        try:
+            SellerProfile.objects.get(user__username=str(user))
+        except ObjectDoesNotExist:
+            seller = False
+
+        if seller:
+            token['username'] = user.username
+        else:
+            token['username'] = None
         return token
 
 

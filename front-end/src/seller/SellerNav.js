@@ -47,7 +47,7 @@ export default function SellerNav() {
     }
 
     const rightTrim = {
-        marginLeft: "220px"
+        marginLeft: "200px"
     }
 
     const shrinkNavCheck = () => {
@@ -80,8 +80,7 @@ export default function SellerNav() {
                 <Link className="sideNavLinks" to="/sellers/add_product"><BsFillBagPlusFill className="mobileNavIcons"/>
                     <span className="nav_labels">Add product</span></Link>
                 <hr/>
-                <Link className="sideNavLinks" to="/"><FcHome className="mobileNavIcons"/>
-                    <span className="nav_labels">surf</span></Link>
+                <Link className="sideNavLinks" to="/">Surf</Link>
 
             </div>
         </div>

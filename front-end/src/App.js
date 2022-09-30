@@ -20,6 +20,18 @@ const PrivateRoutes = () => {
     )
 }
 
+const DynamicPrivateRoutes = () => {
+    let {user} = useContext(AuthContext);
+    const nav = useNavigate();
+    if (user === null) {
+        return (
+            nav('/')
+    )
+    } else {
+        return <Outlet/>
+    }
+}
+
 
 function App() {
     return (
@@ -31,11 +43,12 @@ function App() {
                         <Route element={<PrivateRoutes/>}>
                             <Route path="/authentication/register_page" element={<LoginForm/>}/>
                         </Route>
+
+                        <Route path="/sellers/SellerDashboard" element={<DashboardSeller/>}/>
                         <Route path="/authentication/login" element={<LoginPage/>}/>
                         <Route path='/func_control_panel/base' element={<AdminNav/>}/>
                         <Route path="/func_control_panel/productTree" element={<ProductTree/>}/>
                         <Route path="/sellers/seller_form" element={<SellerForm/>}/>
-                        <Route path="/sellers/SellerDashboard" element={<DashboardSeller/>}/>
                         <Route path="/sellers/add_product" element={<AddProduct/>}/>
                     </Routes>
                 </Router>

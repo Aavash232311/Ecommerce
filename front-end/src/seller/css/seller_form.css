@@ -120,7 +120,7 @@
 .addProductFrame {
     width: 55%;
     height: 700px;
-
+    margin-top: 20px;
     overflow: auto;
     border: 1px solid #9E9E9E;
 }
@@ -204,6 +204,9 @@
     width: 31%;
 }
 @media screen and (max-width: 843px) {
+    #sellerFormPage, .form-control {
+        width: 100%;
+    }
     #render_tag_frames{
         float: left;
     }
